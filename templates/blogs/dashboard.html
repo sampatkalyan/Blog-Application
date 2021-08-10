@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Application </title>
+</head>
+<body>
+    <div class="text-center">
+        <h2>Dashboard</h2>
+        <p>Welcome {{request.user | capfirst }}</p>
+    {% if user_blogs %}
+    <form action="{% url 'deleteblog' %}", method="GET">
+    {% for user_blog in user_blogs %}
+    <input type="checkbox" name="blogs" value="{{user_blog.pk}}">
+    <a href="{% url 'blogdetails' user_blog.slug %}" id="{{user_blog.pk}}">{{user_blog.title}}</a> <a  href="{% url 'updateblog' user_blog.pk %}">Update Blog</a>
+    <br>
+    {% endfor %}
+    <br>
+    <button type='submit' >Delete</button>
+    <br>
+    {% else %}
+    <p>No blogs Create one</p>
+    {% endif %}
+    <a href="{% url 'createblog' %}">Create a Blog </a> <br>
+    <a href="{% url 'blogs' %}">Home</a>
+    </div>
+</form>
+</body>
+</html>

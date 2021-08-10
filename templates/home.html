@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Application</title>
+</head>
+<body>
+{% if request.user.is_authenticated %}
+<a href="{% url 'logout' %}">logout</a>
+<a href="{% url 'dashboard' %}">dashboard</a>
+{% else %}
+<a href="{% url 'createuser' %}">register</a>
+<a href="{% url 'login' %}">login</a>
+{% endif %}
+{{request.user}}
+    <form action="{% url 'search' %}", method="GET">
+        <input type="search", name="blogname", placeholder="Search title">
+        <button type="submit">Search</button>
+    </form>
+    <form action="{% url 'filter' %}", method="GET">
+            {% for category in categories %}
+            <input type="checkbox" id="{{category}}" name="category" value="{{category}}">
+            <label for="{{category}}"> 
+                {{category | capfirst }}
+            </label><br>
+            {% endfor %}
+            <button type="submit">submit</button>
+            
+    </form>
+    {% if blogs %}
+    <br>
+    {% for blog in blogs %}
+    <a href="{% url 'blogdetails' blog.slug %}"> {{ blog.title }}</a><br>
+    {% endfor %}
+    {% else %}
+    <p>No Blogs</p>
+    {% endif %}
+</body>
+</html>

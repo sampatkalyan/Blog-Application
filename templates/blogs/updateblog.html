@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Application </title>
+</head>
+<body>
+    
+<div class="text-center">
+    <h2>Update blog</h2>
+    <form action="{% url 'updateblog' blog.id %}", method="POST", enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <img style="width: 10%;" src="{{ form.image.value.url }}" alt=""> <br>
+        <button type="submit">Update</button>  <br>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+    </form>
+</div>
+</body>
+</html>
